@@ -1,0 +1,129 @@
+/* Editor.module.css */
+
+/* Main layout */
+.editorContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 256px;
+  color: #374151;
+  background: white;
+  border-right: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+.sidebarTitle {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+/* Sidebar sections */
+.sidebarSection {
+  margin-bottom: 1rem;
+}
+
+.sidebarLabel {
+  display: block;
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.25rem;
+}
+
+.sidebarSelect {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.sidebarButton {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  color: #374151;
+  background: white;
+  margin-bottom: 0.25rem;
+}
+
+.sidebarButton:hover {
+  background-color: #f3f4f6;
+}
+
+/* Main content area */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.documentTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.shareButton {
+  padding: 0.25rem 1rem;
+  background: #2563eb;
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* Document paper */
+.documentArea {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.paper {
+  background: white;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  width: 816px;
+  min-height: 1056px;
+  padding: 2rem 4rem;
+}
+
+.titleInput {
+  font-size: 1.875rem;
+  font-weight: 700;
+  width: 100%;
+  margin-bottom: 2rem;
+  outline: none;
+  border-bottom: 1px solid transparent;
+}
+
+.titleInput:hover {
+  border-bottom-color: #d1d5db;
+}
+
+.titleInput:focus {
+  border-bottom-color: #3b82f6;
+}
+
+.contentArea {
+  min-height: 900px;
+  outline: none;
+  color: black;
+}

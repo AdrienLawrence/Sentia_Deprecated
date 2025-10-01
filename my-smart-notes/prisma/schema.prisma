@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid()) @db.Uuid
+  email      String?   @unique
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  notebooks  Notebook[]
+  pages      Page[]
+
+  @@map("users")
+}
+
+model Notebook {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @map("folder_name")
+  style       String   @default("blank") // "blank", "composition", "grid"
+  user_id     String   @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  pages       Page[]
+
+  @@map("notebooks")
+}
+
+model Page {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String?
+  page_number Int       @default(1)
+  content     Json?     // ← Tiptap JSON document with all text + formatting
+  user_id     String    @db.Uuid
+  notebook_id String?   @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime? @updatedAt @db.Timestamptz(6)
+  
+  // Drawing system
+  draw_boxes  DrawBox[]
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  notebook    Notebook? @relation(fields: [notebook_id], references: [id], onDelete: Cascade)
+
+  @@map("notes")
+}
+
+model DrawBox {
+  id          String   @id @default(uuid()) @db.Uuid
+  page_id     String   @db.Uuid
+  x_position  Int      // Position on page
+  y_position  Int
+  width       Int
+  height      Int
+  created_at  DateTime @default(now())
+  
+  // Elements inside this draw box
+  elements    DrawElement[]
+  page        Page     @relation(fields: [page_id], references: [id], onDelete: Cascade)
+}
+
+model DrawElement {
+  id          String   @id @default(uuid()) @db.Uuid
+  draw_box_id String   @db.Uuid
+  type        String   // "rectangle", "circle", "arrow", "line", "text"
+  x           Int      // Position within draw box
+  y           Int
+  width       Int
+  height      Int
+  properties  Json     // {color: "#ff0000", strokeWidth: 2, text: "Label", fontSize: 14}
+  created_at  DateTime @default(now())
+  
+  draw_box    DrawBox  @relation(fields: [draw_box_id], references: [id], onDelete: Cascade)
+}
