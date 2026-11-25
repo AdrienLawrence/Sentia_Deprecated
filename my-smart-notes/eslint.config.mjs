@@ -5,7 +5,9 @@ const compat = new FlatCompat({
   baseDirectory: fileURLToPath(new URL(".", import.meta.url)),
 });
 
-export default [
+const eslintConfig = [
   { ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
+
+export default eslintConfig;
